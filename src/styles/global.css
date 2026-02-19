@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+.sprite {
+  -webkit-box-shadow: inset 0px -2.5px 0px 7.5px #00000053;
+  -moz-box-shadow: inset 0px -2.5px 0px 7.5px #00000053;
+  box-shadow: inset 0px -2.5px 0px 7.5px #00000053;
+}
+
+.btn-3d {
+  position: relative;
+  box-shadow: 0 8px 0 0 #000000;
+  margin-bottom: 8px;
+}
+
+.btn-3d:active {
+  box-shadow: 0 0 0 0 transparent;
+  transform: translateY(8px);
+}
+
+.btn-3d-purple {
+  box-shadow: 0 8px 0 0 #6500a4;
+}
+
+.btn-3d-purple:active {
+  box-shadow: 0 0 0 0 transparent;
+  transform: translateY(8px);
+}
+
+.btn-3d-purple-small {
+  box-shadow: 0 4px 0 0 #6500a4;
+}
+
+.btn-3d-purple-small:active {
+  box-shadow: 0 0 0 0 transparent;
+  transform: translateY(4px);
+}
+
+.btn-3d-gray {
+  box-shadow: 0 4px 0 0 #969696;
+}
+
+.btn-3d-gray:active {
+  box-shadow: 0 0 0 0 transparent;
+  transform: translateY(4px);
+}
+
+.btn-3d-white {
+  box-shadow: 0 2px 0 0 #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.btn-3d-white:active {
+  box-shadow: 0 0 0 0 transparent;
+  transform: translateY(8px);
+}
+
+.btn-3d-none {
+  position: relative;
+  box-shadow: none;
+  border: none;
+  transform: none !important;
+  box-shadow: none !important;
+  translate: 0 0 !important;
+}
+
+.font-nunito {
+  font-family: Nunito, sans-serif;
+}
+
+.font-funnel-display {
+  font-family: 'Funnel Display', sans-serif;
+}
+
+.font-funnel-sans {
+  font-family: 'Funnel Sans', sans-serif;
+}
+
+@theme {
+  --color-gold: #ffda54;
+  --color-purple: #aa3eee;
+  --color-dark-gray: #1a1a1a;
+  --color-brown-dark: #221e0f;
+  --color-gray: #2c2c2c;
+  --color-purple-dark: #221234;
+  --color-red-dark: #34110e;
+  --color-blue-dark: #002d68;
+  --color-teal-dark: #024353;
+  --color-indigo-dark: #150e47;
+  --color-gray-medium: #2b2b2b;
+  --color-green-dark: #10311c;
+  --color-black: #000000;
+}
+
+body {
+  scroll-behavior: smooth;
+  font-family: Nunito, sans-serif;
+  background-color: black;
+}
+
+.fade-in-down {
+  opacity: 0;
+  transform: translateY(-25px);
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
+}
+
+.fade-in-down.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
