@@ -1,0 +1,1 @@
+export const CLAIMR_CONTAINER_ID = 'CLAIMR_CONTAINER';

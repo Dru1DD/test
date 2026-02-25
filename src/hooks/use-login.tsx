@@ -1,0 +1,95 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useEffect, useState } from "react";
+import { useCurrentAccount, useDAppKit } from "@mysten/dapp-kit-react";
+import { Transaction } from "@mysten/sui/transactions";
+import { fromBase64 } from "@mysten/sui/utils";
+
+const useLogin = () => {
+  const account = useCurrentAccount();
+  const dAppKit = useDAppKit();
+
+  const [connected, set_connected] = useState(false);
+  const [signed_in, set_signed_in] = useState(false);
+  const [username, set_username] = useState("");
+
+  const on_request = useCallback(
+    async (
+      _chain_id: string,
+      _request: any,
+      contract: string,
+      _method: string,
+      args: any[],
+      _abi: any[],
+      fee: string,
+    ) => {
+      try {
+        const tx = new Transaction();
+        const token_bytes = new TextEncoder().encode(
+          account?.address + args[0],
+        );
+        const sig_bytes = fromBase64(args[1]);
+        const [payment_coin] = tx.splitCoins(tx.gas, [tx.pure("u64", fee)]);
+        const [package_id, pass_state_id] = contract.split("|");
+
+        tx.moveCall({
+          target: `${package_id}::pass_sbt::mint`,
+          arguments: [
+            tx.object(pass_state_id),
+            tx.pure("vector<u8>", Array.from(token_bytes)),
+            tx.pure("vector<u8>", Array.from(sig_bytes)),
+            payment_coin,
+            tx.object("0x6"),
+          ],
+        });
+
+        const result = await dAppKit.signAndExecuteTransaction({
+          transaction: tx,
+        });
+        console.log(result.Transaction?.digest);
+        return result.Transaction?.digest;
+      } catch (err) {
+        console.error("request error", err);
+        return "";
+      }
+    },
+    [account, dAppKit],
+  );
+
+  const on_connect_x = async () => {
+    (window as any)?.claimr?.platform_login?.("twitter");
+  };
+
+  const on_disconnect = async () => {
+    if (account) {
+      await dAppKit.disconnectWallet();
+    }
+    set_signed_in(false);
+    set_username("");
+    (window as any)?.claimr?.logout?.();
+  };
+
+  useEffect(() => {
+    const handler = (event: MessageEvent<any>) => {
+      if (event.data?.event === "widget::ready") {
+        (window as any).claimr.on_request = on_request;
+      }
+      if (event.data?.event === "widget::user") {
+        set_connected(true);
+        set_signed_in(!!event.data?.is_logged_in);
+        set_username(event.data?.name ?? "");
+      }
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [on_request]);
+
+  return {
+    connected,
+    signed_in,
+    username,
+    on_connect_x,
+    on_disconnect,
+  };
+};
+
+export default useLogin;

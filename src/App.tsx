@@ -1,21 +1,29 @@
-import HeaderSection from '@/components/header-section';
-import WhitelistSection from '@/components/whitelist-section';
-import CardSection from '@/components/card-section';
-import ChanceSection from '@/components/chance-section';
-import QuestionSection from '@/components/question-section';
-import Footer from '@/components/footer';
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+import useLogin from "./hooks/use-login";
 
-function App() {
+const App = () => {
+  const { signed_in } = useLogin();
+
   return (
-    <main className="relative w-full max-w-[1440px] mx-auto min-h-screen overflow-hidden bg-black p-3 md:p-5 flex flex-col gap-3 md:gap-12">
-      <HeaderSection />
-      <WhitelistSection />
-      <CardSection />
-      <ChanceSection />
-      <QuestionSection />
+    <div className="page">
+      <Header />
+      <div className="flex-spacer" />
+      {!signed_in && (
+        <div className="w-full h-full text-white flex justify-center items-center">
+          You are in
+        </div>
+      )}
+      {/* <div style={{ display: signed_in ? "block" : "none" }}>
+        <div className="flex-spacer" />
+        <div className="claimr-container">
+          <div id={CLAIMR_CONTAINER_ID} />
+        </div>
+      </div> */}
+      <div className="flex-spacer" />
       <Footer />
-    </main>
+    </div>
   );
-}
+};
 
 export default App;
