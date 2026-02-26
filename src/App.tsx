@@ -12,7 +12,7 @@ const App = () => {
   const account = useCurrentAccount();
   const dAppKit = useDAppKit();
 
-  const [open_modal, set_open_modal] = useState(false);
+  const [, set_open_modal] = useState(false);
   const [connected, set_connected] = useState(false);
   const [signed_in, set_signed_in] = useState(false);
   const [username, set_username] = useState('');
