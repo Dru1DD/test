@@ -19,9 +19,7 @@ const Footer = () => {
           Terms of Use
         </a>
       </div>
-      <span className="text-gray font-normal font-funnel-sans text-sm">
-        © 2026 Urchin. All rights reserved.
-      </span>
+      <span className="text-gray font-normal font-funnel-sans text-sm">© 2026 Urchin. All rights reserved.</span>
     </footer>
   );
 };

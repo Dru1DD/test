@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --dark-primary: #111111;
@@ -15,11 +15,11 @@
 }
 
 .font-funnel-display {
-  font-family: "Funnel Display", sans-serif;
+  font-family: 'Funnel Display', sans-serif;
 }
 
 .font-funnel-sans {
-  font-family: "Funnel Sans", sans-serif;
+  font-family: 'Funnel Sans', sans-serif;
 }
 
 @theme {
@@ -29,7 +29,7 @@
 
 body {
   margin: 0;
-  font-family: "Funnel Sans", sans-serif;
+  font-family: 'Funnel Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--dark-primary);
@@ -40,8 +40,7 @@ body * {
 }
 
 code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .dialog-background {
@@ -89,12 +88,10 @@ code {
 }
 
 .claimr-container {
-  margin-bottom: 16px;
   padding-top: 20px;
   width: 100%;
   max-width: calc(100vw - var(--container-padding));
   margin-inline: auto;
-  border: 2px dashed #fff6;
   border-radius: 0 12px 12px 12px;
   position: relative;
   margin-top: 0;
@@ -118,12 +115,6 @@ code {
   z-index: 2;
   margin-top: 16px;
   margin-left: calc(calc(100vw - calc(100vw - var(--container-padding))) / 2);
-}
-
-.page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 .flex-spacer {
@@ -189,13 +180,14 @@ menu a:hover {
 
 /* Pulsing dot animation */
 @keyframes pulse-green {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 #A6FA9066;
+    box-shadow: 0 0 0 0 #a6fa9066;
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 0 8px #A6FA9000;
+    box-shadow: 0 0 0 8px #a6fa9000;
   }
 }
 

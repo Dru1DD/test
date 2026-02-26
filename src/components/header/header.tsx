@@ -1,25 +1,22 @@
-import { useState } from "react";
-import useLogin from "@/hooks/use-login";
-import LogoutIcon from "@/components/logout";
-import BurgerMenuIcon from "@/components/burger-menu";
+import { useState } from 'react';
+import LogoutIcon from '@/components/logout';
+import BurgerMenuIcon from '@/components/burger-menu';
 
-const Header = () => {
-  const { connected, signed_in, username, on_connect_x, on_disconnect } =
-    useLogin();
+interface HeaderProps {
+  connected: boolean;
+  signed_in: boolean;
+  username: string;
+  on_connect_x: () => void;
+  on_disconnect_x: () => void;
+}
+
+const Header = ({ connected, signed_in, username, on_connect_x, on_disconnect_x }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="w-full sticky top-0 z-50 flex justify-between items-center px-6 lg:px-16 py-4 bg-transparent border-b border-[#FFFFFF29]">
-      <img
-        src="/logo.svg"
-        alt="logo"
-        className="hidden lg:block w-70 h-10 object-contain "
-      />
-      <img
-        src="/logo-mb.svg"
-        alt="logo"
-        className="lg:hidden w-32.75 h-10 object-contain "
-      />
+      <img src="/logo.svg" alt="logo" className="hidden lg:block w-70 h-10 object-contain " />
+      <img src="/logo-mb.svg" alt="logo" className="lg:hidden w-32.75 h-10 object-contain " />
       <div className="flex-spacer" />
       <div className="flex justify-center items-center gap-5">
         <a
@@ -60,25 +57,17 @@ const Header = () => {
               123213 <img src="/coin.svg" alt="coin" />
             </div>
             <div className="hidden lg:block text-[#383838]">|</div>
-            <span className="hidden lg:block text-white font-semibold mx-2">
-              {username}
-            </span>
+            <span className="hidden lg:block text-white font-semibold mx-2">{username}</span>
             <div className="hidden lg:block text-[#383838]">|</div>
 
-            <button
-              onClick={on_disconnect}
-              className="hidden lg:block px-4 py-3"
-            >
+            <button onClick={on_disconnect_x} className="hidden lg:block px-4 py-3">
               <LogoutIcon />
             </button>
           </div>
         )}
       </div>
       <div className="lg:hidden ml-5">
-        <BurgerMenuIcon
-          isOpen={isMobileMenuOpen}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        />
+        <BurgerMenuIcon isOpen={isMobileMenuOpen} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
       </div>
 
       {isMobileMenuOpen && (
