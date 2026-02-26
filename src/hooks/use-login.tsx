@@ -83,6 +83,8 @@ const useLogin = () => {
   useEffect(() => {
     const handler = (event: MessageEvent<any>) => {
       if (event.data?.event === "widget::ready") {
+        // code is duplicated in App
+        return;
         (window as any).claimr.on_request = on_request;
         (window as any).claimr.on_user_info = on_user_info;
         (window as any).claimr.on_connect_wallet = on_connect_wallet;
@@ -112,8 +114,6 @@ const useLogin = () => {
     username,
     on_connect_x,
     on_disconnect_x,
-    on_connect_wallet,
-    on_disconnect_wallet,
   };
 };
 
