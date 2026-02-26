@@ -8,6 +8,7 @@ const useLogin = () => {
   const account = useCurrentAccount();
   const dAppKit = useDAppKit();
 
+  const [open_modal, set_open_modal] = useState(false);
   const [connected, set_connected] = useState(false);
   const [signed_in, set_signed_in] = useState(false);
   const [username, set_username] = useState("");
@@ -24,9 +25,7 @@ const useLogin = () => {
     ) => {
       try {
         const tx = new Transaction();
-        const token_bytes = new TextEncoder().encode(
-          account?.address + args[0],
-        );
+        const token_bytes = new TextEncoder().encode(account?.address + args[0]);
         const sig_bytes = fromBase64(args[1]);
         const [payment_coin] = tx.splitCoins(tx.gas, [tx.pure("u64", fee)]);
         const [package_id, pass_state_id] = contract.split("|");
@@ -45,7 +44,7 @@ const useLogin = () => {
         const result = await dAppKit.signAndExecuteTransaction({
           transaction: tx,
         });
-        console.log(result.Transaction?.digest);
+        // console.log(result.Transaction?.digest);
         return result.Transaction?.digest;
       } catch (err) {
         console.error("request error", err);
@@ -55,14 +54,27 @@ const useLogin = () => {
     [account, dAppKit],
   );
 
+  const on_user_info = (user_info: Record<string, any>) => {
+    set_connected(true);
+    set_signed_in(!!user_info.is_logged_in);
+    set_username(user_info.name ?? "");
+  };
+
+  const on_connect_wallet = () => {
+    set_open_modal(true);
+  };
+
   const on_connect_x = async () => {
     (window as any)?.claimr?.platform_login?.("twitter");
   };
 
-  const on_disconnect = async () => {
+  const on_disconnect_wallet = async () => {
     if (account) {
       await dAppKit.disconnectWallet();
     }
+  };
+
+  const on_disconnect_x = async () => {
     set_signed_in(false);
     set_username("");
     (window as any)?.claimr?.logout?.();
@@ -72,23 +84,36 @@ const useLogin = () => {
     const handler = (event: MessageEvent<any>) => {
       if (event.data?.event === "widget::ready") {
         (window as any).claimr.on_request = on_request;
-      }
-      if (event.data?.event === "widget::user") {
-        set_connected(true);
-        set_signed_in(!!event.data?.is_logged_in);
-        set_username(event.data?.name ?? "");
+        (window as any).claimr.on_user_info = on_user_info;
+        (window as any).claimr.on_connect_wallet = on_connect_wallet;
+        (window as any).claimr.on_disconnect_wallet = on_disconnect_wallet;
+        if (account?.address) {
+          (window as any).claimr.select_wallet(account?.address);
+        }
       }
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
   }, [on_request]);
 
+  useEffect(() => {
+    if (account?.address) {
+      set_open_modal(false);
+      if (connected) {
+        (window as any).claimr.select_wallet(account?.address);
+      }
+    }
+  }, [account]);
+
   return {
+    open_modal,
     connected,
     signed_in,
     username,
     on_connect_x,
-    on_disconnect,
+    on_disconnect_x,
+    on_connect_wallet,
+    on_disconnect_wallet,
   };
 };
 
