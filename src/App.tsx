@@ -12,7 +12,7 @@ const App = () => {
   const account = useCurrentAccount();
   const dAppKit = useDAppKit();
 
-  const [, set_open_modal] = useState(false);
+  const [open_modal, set_open_modal] = useState(false);
   const [connected, set_connected] = useState(false);
   const [signed_in, set_signed_in] = useState(false);
   const [username, set_username] = useState('');
@@ -110,7 +110,7 @@ const App = () => {
   }, [account]);
 
   return (
-    <div className="h-dvh flex flex-col overflow-x-hidden">
+    <div className="min-h-dvh flex flex-col overflow-x-hidden overflow-y-scroll">
       <Header
         connected={connected}
         signed_in={signed_in}
@@ -119,7 +119,7 @@ const App = () => {
         on_disconnect_x={on_disconnect_x}
       />
 
-      <main className="w-full h-full overflow-x-hidden">
+      <main className="flex-1 overflow-x-hidden">
         <ConnectModal open={open_modal} />
         {!signed_in && <Hero />}
 
@@ -129,7 +129,6 @@ const App = () => {
           </div>
         </div>
       </main>
-      <div className="flex-spacer" />
       <Footer />
     </div>
   );
