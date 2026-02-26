@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --dark-primary: #1f1f1f;
+  --dark-primary: #111111;
   --dark-secondary: #282828;
   --white: #fdfdfd;
   --accent-primary: #2d6aff;
@@ -29,9 +29,7 @@
 
 body {
   margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Funnel Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--dark-primary);
@@ -187,4 +185,20 @@ menu a:hover {
   body {
     --container-padding: 16px;
   }
+}
+
+/* Pulsing dot animation */
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 #A6FA9066;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 0 8px #A6FA9000;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-green 2s ease-in-out infinite;
 }

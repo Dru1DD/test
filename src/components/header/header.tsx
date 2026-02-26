@@ -9,7 +9,7 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="w-full sticky top-0 left-0 z-50 flex justify-between items-center px-6 lg:px-16 py-6 bg-black">
+    <header className="w-full sticky top-0 z-50 flex justify-between items-center px-6 lg:px-16 py-4 bg-transparent border-b border-[#FFFFFF29]">
       <img
         src="/logo.svg"
         alt="logo"
@@ -46,15 +46,13 @@ const Header = () => {
         >
           Community
         </a>
-        {connected && !signed_in && (
-          <>
-            <button
-              className="bg-transparent border-2 border-green text-green uppercase px-4.25 py-3 rounded-xl cursor-pointer hover:bg-green hover:text-black transition-all duration-200"
-              onClick={on_connect_x}
-            >
-              Connect X
-            </button>
-          </>
+        {!signed_in && (
+          <button
+            className="bg-transparent border-2 border-green text-green uppercase px-4.25 py-3 rounded-xl cursor-pointer hover:bg-green hover:text-black transition-all duration-200"
+            onClick={on_connect_x}
+          >
+            Connect X
+          </button>
         )}
         {connected && signed_in && (
           <div className="rounded-xl bg-[#303030]  border-white px-4.25 py-3 flex justify-center items-center gap-2">
@@ -84,7 +82,7 @@ const Header = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-black flex flex-col items-center py-6 gap-6 border-t border-dark-tertiary shadow-xl">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-black flex flex-col items-center py-6 gap-6 border-t border-dark-tertiary shadow-xl z-50">
           <a
             href="https://claimr.io/how-it-works"
             target="_blank"

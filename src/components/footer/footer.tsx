@@ -1,26 +1,26 @@
 const Footer = () => {
   return (
-    <footer className="absolute bottom-0 left-0 right-0 w-full flex justify-between items-center bg-black px-16 py-6">
-      <span className="text-gray font-normal font-funnel-sans text-sm">
-        © 2026 Urchin. All rights reserved.
-      </span>
-      <span className="text-gray font-normal font-funnel-sans text-sm gap-2">
+    <footer className="w-full flex flex-col md:flex-row md:justify-between md:items-center bg-black px-4 md:px-16 py-4 gap-4 md:gap-0">
+      <div className="flex gap-4 text-gray font-normal font-funnel-sans text-sm">
+        <a
+          href="https://claimr.io/privacy-policy"
+          target="_blank"
+          rel="noreferrer"
+          className="hover:underline underline-offset-2 transition-all duration-200"
+        >
+          Privacy Policy
+        </a>
         <a
           href="https://claimr.io/terms-and-conditions"
           target="_blank"
           rel="noreferrer"
           className="hover:underline underline-offset-2 transition-all duration-200"
         >
-          Terms and Conditions
+          Terms of Use
         </a>
-        <a
-          href="https://claimr.io/privacy-policy"
-          target="_blank"
-          rel="noreferrer"
-          className="ml-2 hover:underline underline-offset-2 transition-all duration-200"
-        >
-          Privacy Policy
-        </a>
+      </div>
+      <span className="text-gray font-normal font-funnel-sans text-sm">
+        © 2026 Urchin. All rights reserved.
       </span>
     </footer>
   );
