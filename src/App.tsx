@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useState } from 'react';
-import { useCurrentAccount, useDAppKit } from '@mysten/dapp-kit-react';
+import { ConnectModal, useCurrentAccount, useDAppKit } from '@mysten/dapp-kit-react';
 import { Transaction } from '@mysten/sui/transactions';
 import { fromBase64 } from '@mysten/sui/utils';
 import Footer from '@/components/footer';
@@ -120,6 +120,7 @@ const App = () => {
       />
 
       <main className="w-full h-full overflow-x-hidden">
+        <ConnectModal open={open_modal} />
         {!signed_in && <Hero />}
 
         <div className={signed_in ? 'block' : 'hidden'}>
