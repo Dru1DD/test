@@ -16,6 +16,7 @@ const App = () => {
   const [connected, set_connected] = useState(false);
   const [signed_in, set_signed_in] = useState(false);
   const [username, set_username] = useState('');
+  const [points, set_points] = useState(0);
 
   const on_request = useCallback(
     async (
@@ -61,7 +62,12 @@ const App = () => {
   const on_user_info = (user_info: Record<string, any>) => {
     set_connected(true);
     set_signed_in(!!user_info.is_logged_in);
-    set_username(user_info.name ?? '');
+    set_points((user_info.xp ?? 0) * (user_info.xp_mul ?? 1));
+    if (user_info.twitter?.[0]?.account) {
+      set_username('@' + user_info.twitter[0].account);
+    } else {
+      set_username(user_info.name ?? '');
+    }
   };
 
   const on_connect_wallet = () => {
@@ -115,6 +121,7 @@ const App = () => {
         connected={connected}
         signed_in={signed_in}
         username={username}
+        points={points}
         on_connect_x={on_connect_x}
         on_disconnect_x={on_disconnect_x}
       />
