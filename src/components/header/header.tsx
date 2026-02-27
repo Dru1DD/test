@@ -6,11 +6,12 @@ interface HeaderProps {
   connected: boolean;
   signed_in: boolean;
   username: string;
+  points: number;
   on_connect_x: () => void;
   on_disconnect_x: () => void;
 }
 
-const Header = ({ connected, signed_in, username, on_connect_x, on_disconnect_x }: HeaderProps) => {
+const Header = ({ connected, signed_in, username, points, on_connect_x, on_disconnect_x }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -54,7 +55,7 @@ const Header = ({ connected, signed_in, username, on_connect_x, on_disconnect_x 
         {connected && signed_in && (
           <div className="rounded-xl bg-[#303030]  border-white px-4.25 py-3 flex justify-center items-center gap-2">
             <div className="flex items-center text-white font-semibold gap-2">
-              123213 <img src="/coin.svg" alt="coin" />
+              {points} <img src="/coin.svg" alt="coin" />
             </div>
             <div className="hidden lg:block text-[#383838]">|</div>
             <span className="hidden lg:block text-white font-semibold mx-2">{username}</span>
