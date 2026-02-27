@@ -115,7 +115,7 @@ const HomePage = () => {
   }, [account]);
 
   return (
-    <div className="min-h-dvh flex flex-col overflow-x-hidden overflow-y-scroll">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <Header
         connected={connected}
         signed_in={signed_in}
@@ -125,7 +125,7 @@ const HomePage = () => {
         on_disconnect_x={on_disconnect_x}
       />
 
-      <main className="flex-1 overflow-x-hidden">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden">
         <ConnectModal open={open_modal} />
         {!signed_in && <Hero />}
 
