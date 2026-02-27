@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import LogoutIcon from '@/components/logout';
 import BurgerMenuIcon from '@/components/burger-menu';
 
@@ -14,10 +15,26 @@ interface HeaderProps {
 const Header = ({ connected, signed_in, username, points, on_connect_x, on_disconnect_x }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleLogoClicked = () => {
+    navigate('/', { replace: true });
+  };
+
   return (
     <header className="w-full sticky top-0 z-50 flex justify-between items-center px-6 lg:px-16 py-4 bg-transparent border-b border-[#FFFFFF29]">
-      <img src="/logo.svg" alt="logo" className="hidden lg:block w-70 h-10 object-contain " />
-      <img src="/logo-mb.svg" alt="logo" className="lg:hidden w-32.75 h-10 object-contain " />
+      <img
+        src="/logo.svg"
+        alt="logo"
+        className="hidden lg:block w-70 h-10 object-contain cursor-pointer"
+        onClick={handleLogoClicked}
+      />
+      <img
+        src="/logo-mb.svg"
+        alt="logo"
+        className="lg:hidden w-32.75 h-10 object-contain "
+        onClick={handleLogoClicked}
+      />
       <div className="flex-spacer" />
       <div className="flex justify-center items-center gap-5">
         <a

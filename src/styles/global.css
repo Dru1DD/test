@@ -180,17 +180,19 @@ menu a:hover {
 
 /* Pulsing dot animation */
 @keyframes pulse-green {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 #a6fa9066;
+  0% {
+    box-shadow: 0 0 0 0 rgba(166, 250, 144, 0.4);
   }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 0 8px #a6fa9000;
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(166, 250, 144, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(166, 250, 144, 0);
   }
 }
 
 .pulse-dot {
-  animation: pulse-green 2s ease-in-out infinite;
+  animation: pulse-green 2s linear infinite;
 }
