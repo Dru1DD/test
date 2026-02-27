@@ -120,6 +120,7 @@ const HomePage = () => {
         connected={connected}
         signed_in={signed_in}
         username={username}
+        points={points}
         on_connect_x={on_connect_x}
         on_disconnect_x={on_disconnect_x}
       />
