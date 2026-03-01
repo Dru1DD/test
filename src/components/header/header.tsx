@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import LogoutIcon from '@/components/logout';
 import BurgerMenuIcon from '@/components/burger-menu';
+import CommunityDropdown from './community-dropdown';
+import { socialLinks } from './constant';
 
 interface HeaderProps {
   connected: boolean;
@@ -20,15 +22,27 @@ const Header = ({ connected, signed_in, username, points, on_connect_x, on_disco
   const handleLogoClicked = () => {
     navigate('/', { replace: true });
   };
+  const handleSuiLogoClicked = () => {
+    window.open('https://x.com/SuiNetwork', '_blank');
+  };
 
   return (
-    <header className="w-full sticky top-0 z-50 flex justify-between items-center px-6 lg:px-16 py-4 bg-transparent border-b border-[#FFFFFF29]">
-      <img
-        src="/logo.svg"
-        alt="logo"
-        className="hidden lg:block w-70 h-10 object-contain cursor-pointer"
-        onClick={handleLogoClicked}
-      />
+    <header className="absolute top-0 left-0 w-full z-50 flex justify-between items-center px-6 lg:px-16 py-4 bg-transparent border-b border-[#FFFFFF29]">
+      <div className="hidden lg:flex justify-center items-center gap-2">
+        <img
+          src="/urchin-logo.svg"
+          alt="logo"
+          className="w-32.5 h-10 object-contain cursor-pointer"
+          onClick={handleLogoClicked}
+        />
+        <div className="mx-2 w-0.5 h-8 rounded-full bg-[#363636]" />
+        <img
+          src="/sui-logo.svg"
+          alt="logo"
+          className="w-30 h-10 object-contain cursor-pointer"
+          onClick={handleSuiLogoClicked}
+        />
+      </div>
       <img
         src="/logo-mb.svg"
         alt="logo"
@@ -53,17 +67,10 @@ const Header = ({ connected, signed_in, username, points, on_connect_x, on_disco
         >
           Manifesto
         </a>
-        <a
-          href="https://claimr.io/community"
-          target="_blank"
-          rel="noreferrer"
-          className="hidden lg:block text-white hover:underline underline-offset-2 transition-all duration-200"
-        >
-          Community
-        </a>
+        <CommunityDropdown />
         {!signed_in && (
           <button
-            className="bg-transparent border-2 border-green text-green uppercase px-4.25 py-3 rounded-xl cursor-pointer hover:bg-green hover:text-black transition-all duration-200"
+            className="ml-5 bg-transparent border-2 border-green text-green uppercase px-4.25 py-3 rounded-xl cursor-pointer hover:bg-green hover:text-black transition-all duration-200"
             onClick={on_connect_x}
           >
             Connect X
@@ -89,7 +96,7 @@ const Header = ({ connected, signed_in, username, points, on_connect_x, on_disco
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-black flex flex-col items-center py-6 gap-6 border-t border-dark-tertiary shadow-xl z-50">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-[#111111] flex flex-col items-center py-6 gap-6 border-t border-dark-tertiary shadow-xl z-50">
           <a
             href="https://claimr.io/how-it-works"
             target="_blank"
@@ -108,15 +115,18 @@ const Header = ({ connected, signed_in, username, points, on_connect_x, on_disco
           >
             Manifesto
           </a>
-          <a
-            href="https://claimr.io/community"
-            target="_blank"
-            rel="noreferrer"
-            className="text-white text-lg font-medium hover:text-green transition-colors duration-200"
-            onClick={() => setIsMobileMenuOpen(false)}
-          >
-            Community
-          </a>
+          {socialLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-white text-lg font-medium hover:text-green transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
         </div>
       )}
     </header>

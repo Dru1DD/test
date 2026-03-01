@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { ConnectModal, useCurrentAccount, useDAppKit } from '@mysten/dapp-kit-react';
 import { Transaction } from '@mysten/sui/transactions';
 import { fromBase64 } from '@mysten/sui/utils';
@@ -115,7 +115,7 @@ const HomePage = () => {
   }, [account]);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden  overflow-y-auto">
       <Header
         connected={connected}
         signed_in={signed_in}
@@ -125,9 +125,9 @@ const HomePage = () => {
         on_disconnect_x={on_disconnect_x}
       />
 
-      <main className="flex-1 overflow-y-auto overflow-x-hidden">
+      <main className="flex-1 overflow-y-hidden overflow-x-hidden pt-20 pb-20 lg:pt-30">
         <ConnectModal open={open_modal} />
-        {!signed_in && <Hero />}
+        {!signed_in && <Hero on_connect_x={on_connect_x} />}
 
         <div className={signed_in ? 'block' : 'hidden'}>
           <div className="claimr-container">
@@ -140,4 +140,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default memo(HomePage);
