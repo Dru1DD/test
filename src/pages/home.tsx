@@ -129,7 +129,7 @@ const HomePage = () => {
         <ConnectModal open={open_modal} />
         {!signed_in && <Hero on_connect_x={on_connect_x} />}
 
-        <div className={signed_in ? 'block' : 'hidden'}>
+        <div key={signed_in ? 'signed' : 'unsigned'} className={signed_in ? 'block' : 'hidden'}>
           <div className="claimr-container">
             <div id={CLAIMR_CONTAINER_ID} />
           </div>
