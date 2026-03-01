@@ -115,7 +115,7 @@ const HomePage = () => {
   }, [account]);
 
   return (
-    <div className="relative min-h-screen w-full max-w-360 mx-auto flex flex-col overflow-x-hidden overflow-y-auto">
+    <div className="relative min-h-screen w-full max-w-[16000px] mx-auto flex flex-col overflow-x-hidden overflow-y-auto">
       <Header
         connected={connected}
         signed_in={signed_in}
@@ -129,7 +129,7 @@ const HomePage = () => {
         <ConnectModal open={open_modal} />
         {!signed_in && <Hero on_connect_x={on_connect_x} />}
 
-        <div key={signed_in ? 'signed' : 'unsigned'} className={signed_in ? 'block' : 'hidden'}>
+        <div className={signed_in ? 'block' : 'hidden'}>
           <div className="claimr-container">
             <div id={CLAIMR_CONTAINER_ID} />
           </div>

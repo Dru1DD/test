@@ -35,14 +35,14 @@ const CommunityDropdown = ({ onItemClick }: CommunityDropdownProps) => {
         className="text-white text-base font-normal hover:underline underline-offset-2 hover:text-green transition-all duration-200 flex items-center gap-1 cursor-pointer bg-transparent border-none p-0"
       >
         Community
-        <svg
+        {/* <svg
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
+        </svg> */}
       </button>
 
       {isOpen && (

@@ -77,7 +77,7 @@ const Header = ({ connected, signed_in, username, points, on_connect_x, on_disco
           </button>
         )}
         {connected && signed_in && (
-          <div className="rounded-xl bg-[#303030]  border-white px-4.25 py-3 flex justify-center items-center gap-2">
+          <div className="ml-5 rounded-xl bg-[#303030]  border-white px-4.25 py-3 flex justify-center items-center gap-2">
             <div className="flex items-center text-white font-semibold gap-2">
               {points} <img src="/coin.svg" alt="coin" />
             </div>
