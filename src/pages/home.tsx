@@ -115,7 +115,7 @@ const HomePage = () => {
   }, [account]);
 
   return (
-    <div className="relative min-h-screen flex flex-col overflow-x-hidden  overflow-y-auto">
+    <div className="relative min-h-screen w-full max-w-360 mx-auto flex flex-col overflow-x-hidden overflow-y-auto">
       <Header
         connected={connected}
         signed_in={signed_in}

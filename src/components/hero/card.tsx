@@ -38,7 +38,7 @@ const Card = () => {
   };
 
   return (
-    <div className="relative shrink-0 flex justify-center w-full xl:w-auto" style={{ perspective: '1000px' }}>
+    <div className="relative shrink-0 flex justify-center w-full lg:w-auto" style={{ perspective: '1000px' }}>
       <div
         className="absolute w-100 md:w-150 lg:w-200 h-100 md:h-150 lg:h-200 rounded-full opacity-20 pointer-events-none"
         style={{
@@ -66,7 +66,7 @@ const Card = () => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={style}
-        className="relative w-64 md:w-80 lg:w-105 h-auto object-contain will-change-transform"
+        className="relative w-64 md:w-80 lg:w-96 xl:w-105 h-auto object-contain will-change-transform"
       />
     </div>
   );
