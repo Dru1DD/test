@@ -1,9 +1,21 @@
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useCurrentAccount, useDAppKit } from '@mysten/dapp-kit-react';
 import { Transaction } from '@mysten/sui/transactions';
 import { fromBase64 } from '@mysten/sui/utils';
 
-const useClaimr = () => {
+interface ClaimrContextValue {
+  open_modal: boolean;
+  connected: boolean;
+  signed_in: boolean;
+  username: string;
+  points: number;
+  on_connect_x: () => Promise<void>;
+  on_disconnect_x: () => Promise<void>;
+}
+
+const ClaimrContext = createContext<ClaimrContextValue | null>(null);
+
+export const ClaimrProvider = ({ children }: { children: ReactNode }) => {
   const account = useCurrentAccount();
   const dAppKit = useDAppKit();
 
@@ -12,6 +24,7 @@ const useClaimr = () => {
   const [signed_in, set_signed_in] = useState(false);
   const [username, set_username] = useState('');
   const [points, set_points] = useState(0);
+
   const on_request = useCallback(
     async (
       _chain_id: string,
@@ -43,7 +56,6 @@ const useClaimr = () => {
         const result = await dAppKit.signAndExecuteTransaction({
           transaction: tx,
         });
-        // console.log(result.Transaction?.digest);
         return result.Transaction?.digest;
       } catch (err) {
         console.error('request error', err);
@@ -53,7 +65,7 @@ const useClaimr = () => {
     [account, dAppKit],
   );
 
-  const on_user_info = (user_info: Record<string, any>) => {
+  const on_user_info = useCallback((user_info: Record<string, any>) => {
     set_connected(true);
     set_signed_in(!!user_info.is_logged_in);
     set_points((user_info.xp ?? 0) * (user_info.xp_mul ?? 1));
@@ -62,27 +74,27 @@ const useClaimr = () => {
     } else {
       set_username(user_info.name ?? '');
     }
-  };
+  }, []);
 
-  const on_connect_wallet = () => {
+  const on_connect_wallet = useCallback(() => {
     set_open_modal(true);
-  };
+  }, []);
 
-  const on_connect_x = async () => {
+  const on_connect_x = useCallback(async () => {
     (window as any)?.claimr?.platform_login?.('twitter');
-  };
+  }, []);
 
-  const on_disconnect_wallet = async () => {
+  const on_disconnect_wallet = useCallback(async () => {
     if (account) {
       await dAppKit.disconnectWallet();
     }
-  };
+  }, [account, dAppKit]);
 
-  const on_disconnect_x = async () => {
+  const on_disconnect_x = useCallback(async () => {
     set_signed_in(false);
     set_username('');
     (window as any)?.claimr?.logout?.();
-  };
+  }, []);
 
   useEffect(() => {
     const handler = (event: MessageEvent<any>) => {
@@ -98,7 +110,7 @@ const useClaimr = () => {
     };
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
-  }, [on_request]);
+  }, [on_request, on_user_info, on_connect_wallet, on_disconnect_wallet, account]);
 
   useEffect(() => {
     if (account?.address) {
@@ -107,8 +119,9 @@ const useClaimr = () => {
         (window as any).claimr.select_wallet(account?.address);
       }
     }
-  }, [account]);
-  return {
+  }, [account, connected]);
+
+  const value: ClaimrContextValue = {
     open_modal,
     connected,
     signed_in,
@@ -117,6 +130,16 @@ const useClaimr = () => {
     on_connect_x,
     on_disconnect_x,
   };
+
+  return <ClaimrContext.Provider value={value}>{children}</ClaimrContext.Provider>;
+};
+
+const useClaimr = (): ClaimrContextValue => {
+  const context = useContext(ClaimrContext);
+  if (!context) {
+    throw new Error('useClaimr must be used within a ClaimrProvider');
+  }
+  return context;
 };
 
 export default useClaimr;
