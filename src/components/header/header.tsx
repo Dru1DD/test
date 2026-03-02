@@ -1,20 +1,13 @@
 import { useState } from 'react';
+import useClaimr from '@/hooks/use-claimr';
 import { useNavigate } from 'react-router';
 import LogoutIcon from '@/components/logout';
 import BurgerMenuIcon from '@/components/burger-menu';
 import CommunityDropdown from './community-dropdown';
 import { socialLinks } from './constant';
 
-interface HeaderProps {
-  connected: boolean;
-  signed_in: boolean;
-  username: string;
-  points: number;
-  on_connect_x: () => void;
-  on_disconnect_x: () => void;
-}
-
-const Header = ({ connected, signed_in, username, points, on_connect_x, on_disconnect_x }: HeaderProps) => {
+const Header = () => {
+  const { connected, signed_in, username, points, on_connect_x, on_disconnect_x } = useClaimr();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();

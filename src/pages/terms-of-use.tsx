@@ -1,9 +1,11 @@
 import Footer from '@/components/footer';
+import Header from '@/components/header';
 
 const TermsOfUsePage = () => {
   return (
     <div className="relative min-h-dvh w-full flex flex-col overflow-x-hidden bg-black text-white">
-      <main className="h-full max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+      <Header />
+      <main className="h-full max-w-4xl mx-auto px-6 py-16 pt-20  lg:pb-20 lg:pt-30 flex-1 w-full">
         <h1 className="text-4xl md:text-5xl font-bold mb-10 tracking-tight">Terms of Use</h1>
 
         <div className="space-y-8 text-gray-300 leading-relaxed text-lg">
