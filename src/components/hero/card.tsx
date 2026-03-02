@@ -4,7 +4,7 @@ import type { MouseEvent } from 'react';
 const Card = () => {
   const cardRef = useRef<HTMLImageElement>(null);
   const [style, setStyle] = useState<React.CSSProperties>({
-    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(3deg)',
+    transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)',
     transition: 'transform 0.5s ease-out',
   });
 
@@ -32,7 +32,7 @@ const Card = () => {
 
   const handleMouseLeave = () => {
     setStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(3deg)',
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg)',
       transition: 'transform 0.5s ease-out',
     });
   };
@@ -61,7 +61,7 @@ const Card = () => {
       />
       <img
         ref={cardRef}
-        src="/main-card.png"
+        src="/main-card-no-rotate.png"
         alt="Early Access Pass Card"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
